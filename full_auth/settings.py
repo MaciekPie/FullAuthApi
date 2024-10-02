@@ -95,7 +95,9 @@ WSGI_APPLICATION = "full_auth.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-if DEVELOPMENT_MODE is True:  # added - only databases dictionary
+if (
+    DEVELOPMENT_MODE is True
+):  # added - digital ocean settings - using postgres database?
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.sqlite3",
@@ -103,7 +105,9 @@ if DEVELOPMENT_MODE is True:  # added - only databases dictionary
         }
     }
 elif len(sys.argv) > 0 and sys.argv[1] != "collectstatic":
-    if getenv("DATABASE_URL", None) is None:
+    if (
+        getenv("DATABASE_URL", None) is None
+    ):  # getenv is taking DATABASE_URL from Digital Ocean (This is key and the value is ${db.DATABASE_URL} where db is the name of database) so make it from google storage
         raise Exception("DATABASE_URL environment variable not defined")
     DATABASES = {
         "default": dj_database_url.parse(getenv("DATABASE_URL")),
@@ -197,9 +201,12 @@ else:
     AWS_S3_OBJECT_PARAMETERS = {"CacheControl": "max-age=86400"}
     AWS_DEFAULT_ACL = "public-read"
     AWS_LOCATION = "static"
+    AWS_MEDIA_LOCATION = "media"  # added by me
     AWS_S3_CUSTOM_DOMAIN = getenv("AWS_S3_CUSTOM_DOMAIN")
     STORAGES = {
-        "default": {"BACKEND": "storages.backends.s3boto3.S3Boto3Storage"},
+        "default": {
+            "BACKEND": "custom_storages.CustomS3Boto3Storage"
+        },  # "storages.backends.s3boto3.S3Boto3Storage"
         "staticfiles": {"BACKEND": "storages.backends.s3boto3.S3StaticStorage"},
     }
 
@@ -280,5 +287,5 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 AUTH_USER_MODEL = "users.UserAccount"
 
-# ENDED ON 2:42:24
-# MAKE MIGRATIONS,
+# ENDED ON 3:07:24
+# MAKE MIGRATIONS, CREATE SUPERUSER
