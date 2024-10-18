@@ -5,6 +5,7 @@ import Provider from "@/redux/provider";
 //import Navbar from "@/components/common/Navbar";
 //import Footer from "@/components/common/Footer";
 import { Navbar, Footer } from "@/components/common"; // possible with the index.ts
+import { Setup } from "@/components/utils";
 
 
 const geistSans = localFont({
@@ -34,6 +35,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Provider>
+          <Setup />
           <Navbar></Navbar>
           <div>{children}</div>
           <Footer></Footer>
@@ -43,5 +45,3 @@ export default function RootLayout({
   );
 }
 
-
-// Finished on 45:00

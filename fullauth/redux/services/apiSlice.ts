@@ -1,4 +1,4 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query";
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"; // "@reduxjs/toolkit/query"
 import type { BaseQueryFn, FetchArgs, FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { setAuth, logout } from "../features/authSlice";
 import { Mutex } from "async-mutex";
@@ -27,7 +27,7 @@ const baseQueryWithReauth: BaseQueryFn<
                 const refreshResult = await baseQuery(
                     {
                         url: "/jwt/refresh/",
-                        method: "POST"
+                        method: "POST",
                     },
                     api,
                     extraOptions
