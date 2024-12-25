@@ -7,6 +7,7 @@ interface Props {
     isBanner?: boolean;
     href?: string;
     children: React.ReactNode;
+    /* eslint-disable @typescript-eslint/no-explicit-any */
     [rest: string]: any;
 }
 

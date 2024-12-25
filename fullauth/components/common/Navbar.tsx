@@ -1,8 +1,8 @@
 "use client";
 
-import Link from 'next/link';
-import { useRouter, usePathname } from 'next/navigation';
-import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
+import { usePathname } from 'next/navigation';
+// without DisclosureButton, DisclosurePanel ???
+import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react';
 import { Bars3Icon } from '@heroicons/react/24/outline';
 import { useAppSelector, useAppDispatch } from '@/redux/hooks';
 import { useLogoutMutation } from '@/redux/features/authApiSlice';
@@ -11,7 +11,6 @@ import { NavLink } from "@/components/common";
 
 
 export default function Navbar() {
-    const router = useRouter();
     const pathname = usePathname();
     const dispatch = useAppDispatch();
 
@@ -24,10 +23,10 @@ export default function Navbar() {
             .unwrap()
             .then(() => {
                 dispatch(setLogout());
-            })
-            .finally(() => {
-                router.push("/");
             });
+            //.finally(() => {
+            //    router.push("/");
+            //});
     };
 
     const isSelected = (path: string) => pathname === path ? true : false;
